@@ -14,6 +14,8 @@ import {
   FaArrowRight,
   FaAngleRight,
   FaGlobe,
+  FaImage,
+  FaTicketAlt,
 } from "react-icons/fa";
 import Card from "../components/common/Card";
 import StatCard from "../components/common/StatCard";
@@ -33,6 +35,8 @@ const Home = () => {
   const [stats, setStats] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [blocks, setBlocks] = useState([]);
+  const [mostTransactedTokens, setMostTransactedTokens] = useState([]);
+  const [mostTransactedNFTs, setMostTransactedNFTs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -82,6 +86,164 @@ const Home = () => {
                 timestamp: Math.floor(Date.now() / 1000) - i * 6,
               }));
 
+            // Mock most transacted tokens data
+            const mockMostTransactedTokens = [
+              {
+                rank: 1,
+                symbol: "REWA",
+                name: "Reward Token",
+                icon: "🪙",
+                totalTxns: 18834,
+              },
+              {
+                rank: 2,
+                symbol: "USDC",
+                name: "USD Coin",
+                icon: "💵",
+                totalTxns: 5614,
+              },
+              {
+                rank: 3,
+                symbol: "BNB",
+                name: "Binance Coin",
+                icon: "🪙",
+                totalTxns: 4775,
+              },
+              {
+                rank: 4,
+                symbol: "EGLD",
+                name: "MultiversX EGLD",
+                icon: "💎",
+                totalTxns: 2461,
+              },
+              {
+                rank: 5,
+                symbol: "MEX",
+                name: "Maiar Exchange Token",
+                icon: "🔄",
+                totalTxns: 1488,
+              },
+              {
+                rank: 6,
+                symbol: "ESDT",
+                name: "Elrond Standard Token",
+                icon: "🪙",
+                totalTxns: 1425,
+              },
+              {
+                rank: 7,
+                symbol: "HTM",
+                name: "Hatom Protocol",
+                icon: "🔶",
+                totalTxns: 1378,
+              },
+              {
+                rank: 8,
+                symbol: "ASH",
+                name: "Ashswap Token",
+                icon: "🔥",
+                totalTxns: 1353,
+              },
+              {
+                rank: 9,
+                symbol: "LPAD",
+                name: "Launchpad Token",
+                icon: "🚀",
+                totalTxns: 1317,
+              },
+              {
+                rank: 10,
+                symbol: "RIDE",
+                name: "Holoride Token",
+                icon: "🚗",
+                totalTxns: 1134,
+              },
+            ];
+
+            // Mock most transacted NFTs data
+            const mockMostTransactedNFTs = [
+              {
+                rank: 1,
+                name: "Cathena Items",
+                icon: "🎮",
+                items: 225702,
+                holders: 7855,
+                totalTxns: 761,
+              },
+              {
+                rank: 2,
+                name: "Portals Of Infinity",
+                icon: "🌀",
+                items: 17,
+                holders: 36537,
+                totalTxns: 435,
+              },
+              {
+                rank: 3,
+                name: "Portal Achievements",
+                icon: "🏆",
+                items: 15,
+                holders: 169889,
+                totalTxns: 409,
+              },
+              {
+                rank: 4,
+                name: "Wood",
+                icon: "🪵",
+                items: 1,
+                holders: 376,
+                totalTxns: 122,
+              },
+              {
+                rank: 5,
+                name: "Stone",
+                icon: "🪨",
+                items: 1,
+                holders: 219,
+                totalTxns: 122,
+              },
+              {
+                rank: 6,
+                name: "Wheat",
+                icon: "🌾",
+                items: 1,
+                holders: 284,
+                totalTxns: 118,
+              },
+              {
+                rank: 7,
+                name: "ELRONDAPESCLUB",
+                icon: "🐵",
+                items: 10000,
+                holders: 1119,
+                totalTxns: 63,
+              },
+              {
+                rank: 8,
+                name: "MemeverseX Airdrop",
+                icon: "🪂",
+                items: 1,
+                holders: 10713,
+                totalTxns: 61,
+              },
+              {
+                rank: 9,
+                name: "xCastle",
+                icon: "🏰",
+                items: 67,
+                holders: 407,
+                totalTxns: 48,
+              },
+              {
+                rank: 10,
+                name: "MYSTERYBOX",
+                icon: "📦",
+                items: 5,
+                holders: 7752,
+                totalTxns: 48,
+              },
+            ];
+
             // Mock stats data
             const mockStats = {
               price: 52.35,
@@ -106,6 +268,8 @@ const Home = () => {
             setStats(mockStats);
             setBlocks(mockBlocks);
             setTransactions(mockTransactions);
+            setMostTransactedTokens(mockMostTransactedTokens);
+            setMostTransactedNFTs(mockMostTransactedNFTs);
             console.log("Dashboard data loaded successfully");
 
             resolve();
@@ -138,6 +302,8 @@ const Home = () => {
         });
         setTransactions([]);
         setBlocks([]);
+        setMostTransactedTokens([]);
+        setMostTransactedNFTs([]);
       } finally {
         setIsLoading(false);
       }
@@ -500,6 +666,178 @@ const Home = () => {
                 <p className="text-xl font-semibold mt-2">
                   {formatNumber(stats?.smartContracts || 0)}
                 </p>
+              </div>
+            </div>
+
+            {/* Most Transacted Tokens and NFTs Section */}
+            <div className="flex flex-col md:flex-row gap-8 mb-10">
+              <div className="w-full md:w-1/2">
+                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden">
+                  <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h2 className="text-xl font-bold flex items-center">
+                      <FaCoins className="mr-2 text-primary" />
+                      Most Transacted Tokens{" "}
+                      <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
+                        (Daily)
+                      </span>
+                    </h2>
+                    <Link
+                      to="/tokens"
+                      className="text-primary hover:text-primary-dark flex items-center text-sm"
+                    >
+                      View All <FaAngleRight className="ml-1" />
+                    </Link>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full">
+                      <thead className="bg-black">
+                        <tr>
+                          <th
+                            scope="col"
+                            className="w-1/6 px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                          >
+                            Rank
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-3/6 px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                          >
+                            Token
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-2/6 px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider"
+                          >
+                            Total Txn
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+                        {mostTransactedTokens.map((token) => (
+                          <tr
+                            key={token.rank}
+                            className="hover:bg-gray-50 dark:hover:bg-gray-800"
+                          >
+                            <td className="w-1/6 px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+                              {token.rank}
+                            </td>
+                            <td className="w-3/6 px-6 py-4 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <span className="text-xl mr-2">
+                                  {token.icon}
+                                </span>
+                                <div>
+                                  <Link
+                                    to={`/token/${token.symbol}`}
+                                    className="text-primary hover:underline"
+                                  >
+                                    {token.symbol}
+                                  </Link>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    {token.name}
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="w-2/6 px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">
+                              {formatNumber(token.totalTxns)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full md:w-1/2">
+                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden">
+                  <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h2 className="text-xl font-bold flex items-center">
+                      <FaImage className="mr-2 text-primary" />
+                      Most Transacted NFTs{" "}
+                      <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
+                        (Daily)
+                      </span>
+                    </h2>
+                    <Link
+                      to="/nfts"
+                      className="text-primary hover:text-primary-dark flex items-center text-sm"
+                    >
+                      View All <FaAngleRight className="ml-1" />
+                    </Link>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full">
+                      <thead className="bg-black">
+                        <tr>
+                          <th
+                            scope="col"
+                            className="w-1/12 px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                          >
+                            Rank
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-5/12 px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                          >
+                            Collection
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-2/12 px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider"
+                          >
+                            Items
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-2/12 px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider"
+                          >
+                            Holders
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-2/12 px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider"
+                          >
+                            Total Txn
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+                        {mostTransactedNFTs.map((nft) => (
+                          <tr
+                            key={nft.rank}
+                            className="hover:bg-gray-50 dark:hover:bg-gray-800"
+                          >
+                            <td className="w-1/12 px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+                              {nft.rank}
+                            </td>
+                            <td className="w-5/12 px-6 py-4 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <span className="text-xl mr-2">{nft.icon}</span>
+                                <Link
+                                  to={`/nft/${nft.name}`}
+                                  className="text-primary hover:underline"
+                                >
+                                  {nft.name}
+                                </Link>
+                              </div>
+                            </td>
+                            <td className="w-2/12 px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">
+                              {formatNumber(nft.items)}
+                            </td>
+                            <td className="w-2/12 px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">
+                              {formatNumber(nft.holders)}
+                            </td>
+                            <td className="w-2/12 px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">
+                              {formatNumber(nft.totalTxns)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
 
