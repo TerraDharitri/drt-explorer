@@ -80,10 +80,10 @@ export const TIME_PERIODS = {
 // Social media links
 export const SOCIAL_LINKS = {
   TWITTER: "https://twitter.com/dharitri",
-  GITHUB: "https://github.com/dharitri",
+  GITHUB: "https://github.com/TerraDharitri",
   TELEGRAM: "https://t.me/dharitri",
   DISCORD: "https://discord.gg/dharitri",
-  WEBSITE: "https://dharitri.com",
+  WEBSITE: "https://dharitri.org",
   DOCS: "https://docs.dharitri.com",
   BLOG: "https://dharitri.com/blog",
 };

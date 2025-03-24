@@ -21,7 +21,7 @@ const Footer = () => {
       icon: <FaTwitter />,
       url: "https://twitter.com/dharitri",
     },
-    { name: "GitHub", icon: <FaGithub />, url: "https://github.com/dharitri" },
+    { name: "GitHub", icon: <FaGithub />, url: "https://github.com/TerraDharitri" },
     { name: "Telegram", icon: <FaTelegram />, url: "https://t.me/dharitri" },
     {
       name: "Discord",
@@ -188,7 +188,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://github.com/dharitri"
+                  href="https://github.com/TerraDharitri"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary text-sm transition-colors flex items-center"
