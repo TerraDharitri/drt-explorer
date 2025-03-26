@@ -238,8 +238,8 @@ const Home = () => {
               },
               {
                 rank: 4,
-                symbol: "EGLD",
-                name: "MultiversX EGLD",
+                symbol: "REWA",
+                name: "Dharitri REWA",
                 icon: "💎",
                 totalTxns: 2461,
               },
@@ -808,7 +808,7 @@ const Home = () => {
                 </h3>
                 <div className="flex items-center gap-2">
                   <span className="text-3xl font-bold text-primary dark:text-teal-400">
-                    {formatLargeNumber(stakingData.total)} EGLD
+                    {formatLargeNumber(stakingData.total)} REWA
                   </span>
                   <span className="text-sm text-primary dark:text-teal-400">
                     ({stakingData.percentage}%)
@@ -890,7 +890,7 @@ const Home = () => {
                       Developer Rewards
                     </h3>
                     <div className="text-xl font-bold text-gray-800 dark:text-white">
-                      {formatLargeNumber(developerData.rewards)} EGLD
+                      {formatLargeNumber(developerData.rewards)} REWA
                     </div>
                   </div>
 
@@ -899,7 +899,7 @@ const Home = () => {
                       Fees Captured
                     </h3>
                     <div className="text-xl font-bold text-gray-800 dark:text-white">
-                      {formatLargeNumber(developerData.feesCaptured)} EGLD
+                      {formatLargeNumber(developerData.feesCaptured)} REWA
                     </div>
                   </div>
 
@@ -1551,7 +1551,7 @@ const Home = () => {
                               <span className="text-lg">💎</span>
                             </div>
                             <div className="font-medium text-gray-900 dark:text-white">
-                              EGLD{" "}
+                              REWA{" "}
                               <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300">
                                 <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 mr-1"></span>
                                 Verified
