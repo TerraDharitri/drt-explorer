@@ -18,8 +18,8 @@ const NFTs = () => {
   // Mock NFT data
   const mockNFTs = [
     {
-      id: "deadrare-elrond-gorillaz",
-      name: "Elrond Gorillaz",
+      id: "deadrare-dharitri-gorillaz",
+      name: "dharitri Gorillaz",
       ticker: "GORILLAZ",
       items: 5000,
       holders: 1520,

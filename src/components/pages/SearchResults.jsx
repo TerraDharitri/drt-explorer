@@ -95,7 +95,7 @@ const SearchResults = () => {
               balance: "3240000000000000000",
               nonce: 458,
               shard: 0,
-              username: query.includes("alice") ? "alice.elrond" : "",
+              username: query.includes("alice") ? "alice.dharitri" : "",
               isVerified: query.includes("alice"),
               transactions: 1254,
             },

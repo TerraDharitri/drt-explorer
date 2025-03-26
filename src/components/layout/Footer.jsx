@@ -225,11 +225,11 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="mailto:support@dharitri.com"
+                  href="mailto:supporrt@dharitri.org"
                   className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary text-sm transition-colors flex items-center"
                 >
                   <FaEnvelope className="mr-2" />
-                  <span>support@dharitri.com</span>
+                  <span>supporrt@dharitri.org</span>
                 </a>
               </li>
             </ul>

@@ -60,7 +60,7 @@ const Accounts = () => {
       txCount: 458,
       shard: 0,
       type: "Wallet",
-      username: "alice.elrond",
+      username: "alice.dharitri",
       isVerified: false,
     },
     {
@@ -69,7 +69,7 @@ const Accounts = () => {
       txCount: 312,
       shard: 1,
       type: "Wallet",
-      username: "bob.elrond",
+      username: "bob.dharitri",
       isVerified: false,
     },
     {
@@ -87,7 +87,7 @@ const Accounts = () => {
       txCount: 276,
       shard: 0,
       type: "Wallet",
-      username: "charlie.elrond",
+      username: "charlie.dharitri",
       isVerified: false,
     },
     {
@@ -105,7 +105,7 @@ const Accounts = () => {
       txCount: 88,
       shard: 2,
       type: "Wallet",
-      username: "dave.elrond",
+      username: "dave.dharitri",
       isVerified: false,
     },
     {
@@ -132,7 +132,7 @@ const Accounts = () => {
       txCount: 156,
       shard: 2,
       type: "Wallet",
-      username: "eve.elrond",
+      username: "eve.dharitri",
       isVerified: false,
     },
     {
@@ -150,7 +150,7 @@ const Accounts = () => {
       txCount: 122,
       shard: 1,
       type: "Wallet",
-      username: "frank.elrond",
+      username: "frank.dharitri",
       isVerified: false,
     },
     {

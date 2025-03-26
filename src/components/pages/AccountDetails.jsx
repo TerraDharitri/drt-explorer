@@ -64,7 +64,7 @@ const AccountDetails = () => {
             username: isVerified
               ? isSmartContract
                 ? "exchange.dharitri.org"
-                : "alice.elrond"
+                : "alice.dharitri"
               : "",
             isVerified,
             txCount: Math.floor(Math.random() * 1000) + 10,

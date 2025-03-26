@@ -253,7 +253,7 @@ const Home = () => {
               {
                 rank: 6,
                 symbol: "ESDT",
-                name: "Elrond Standard Token",
+                name: "dharitri Standard Token",
                 icon: "🪙",
                 totalTxns: 1425,
               },
@@ -291,7 +291,7 @@ const Home = () => {
             const mockMostTransactedNFTs = [
               {
                 rank: 1,
-                name: "Cathena Items",
+                name: "DragonRealm Items",
                 icon: "🎮",
                 items: 225702,
                 holders: 7855,
@@ -299,7 +299,7 @@ const Home = () => {
               },
               {
                 rank: 2,
-                name: "Portals Of Infinity",
+                name: "Dharitri Gateways",
                 icon: "🌀",
                 items: 17,
                 holders: 36537,
@@ -307,7 +307,7 @@ const Home = () => {
               },
               {
                 rank: 3,
-                name: "Portal Achievements",
+                name: "Gateway Badges",
                 icon: "🏆",
                 items: 15,
                 holders: 169889,
@@ -339,7 +339,7 @@ const Home = () => {
               },
               {
                 rank: 7,
-                name: "ELRONDAPESCLUB",
+                name: "DHARITRI MONKEYS",
                 icon: "🐵",
                 items: 10000,
                 holders: 1119,
@@ -347,7 +347,7 @@ const Home = () => {
               },
               {
                 rank: 8,
-                name: "MemeverseX Airdrop",
+                name: "Dharitri Airdrop",
                 icon: "🪂",
                 items: 1,
                 holders: 10713,
@@ -355,7 +355,7 @@ const Home = () => {
               },
               {
                 rank: 9,
-                name: "xCastle",
+                name: "DFortress",
                 icon: "🏰",
                 items: 67,
                 holders: 407,
@@ -1053,11 +1053,11 @@ const Home = () => {
                       </span>
                     </div>
                     <div className="flex flex-col items-center mt-4">
-                      <div className="w-24 h-24 bg-gray-100 dark:bg-black rounded-full flex items-center justify-center mb-3 shadow-inner">
-                        <div className="w-12 h-12 border-2 border-gray-900 dark:border-white rounded-full"></div>
+                      <div className="w-24 h-24 bg-blue-400 dark:bg-blue-700 rounded-full flex items-center justify-center mb-3 shadow-inner">
+                        <span className="text-4xl">🌊</span>
                       </div>
                       <h3 className="text-gray-900 dark:text-white font-medium text-center group-hover:text-primary">
-                        Pulsar Money: Quests
+                        DWave: Quests
                       </h3>
                     </div>
                   </div>
@@ -1079,7 +1079,7 @@ const Home = () => {
                         <span className="text-4xl">🐦</span>
                       </div>
                       <h3 className="text-gray-900 dark:text-white font-medium text-center">
-                        Scratch Bot
+                        Dharitri Bird
                       </h3>
                     </div>
                   </div>
@@ -1097,11 +1097,11 @@ const Home = () => {
                       </span>
                     </div>
                     <div className="flex flex-col items-center mt-4">
-                      <div className="w-24 h-24 bg-gray-100 dark:bg-black rounded-full flex items-center justify-center mb-3 shadow-inner">
-                        <span className="text-6xl text-teal-400">x</span>
+                      <div className="w-24 h-24 bg-purple-400 dark:bg-purple-700 rounded-full flex items-center justify-center mb-3 shadow-inner">
+                        <span className="text-4xl">🎮</span>
                       </div>
                       <h3 className="text-gray-900 dark:text-white font-medium text-center">
-                        xPortal: Claim XP Shard 1
+                        DPortal: Reward Claim
                       </h3>
                     </div>
                   </div>
@@ -1119,11 +1119,11 @@ const Home = () => {
                       </span>
                     </div>
                     <div className="flex flex-col items-center mt-4">
-                      <div className="w-24 h-24 bg-gray-100 dark:bg-black rounded-full flex items-center justify-center mb-3 shadow-inner">
-                        <span className="text-6xl text-blue-400">⚡</span>
+                      <div className="w-24 h-24 bg-indigo-400 dark:bg-indigo-700 rounded-full flex items-center justify-center mb-3 shadow-inner">
+                        <span className="text-4xl">💱</span>
                       </div>
                       <h3 className="text-gray-900 dark:text-white font-medium text-center">
-                        xExchange: Fees Collector
+                        DSwap: Fees Collector
                       </h3>
                     </div>
                   </div>
@@ -1145,7 +1145,7 @@ const Home = () => {
                         <span className="text-4xl">🦫</span>
                       </div>
                       <h3 className="text-gray-900 dark:text-white font-medium text-center">
-                        BOBER: Flip
+                        Dharitri Flip
                       </h3>
                     </div>
                   </div>
@@ -1163,11 +1163,11 @@ const Home = () => {
                       </span>
                     </div>
                     <div className="flex flex-col items-center mt-4">
-                      <div className="w-24 h-24 bg-gray-100 dark:bg-black rounded-full flex items-center justify-center mb-3 shadow-inner">
-                        <span className="text-5xl">💱</span>
+                      <div className="w-24 h-24 bg-green-400 dark:bg-green-700 rounded-full flex items-center justify-center mb-3 shadow-inner">
+                        <span className="text-4xl">💰</span>
                       </div>
                       <h3 className="text-gray-900 dark:text-white font-medium text-center">
-                        xExchange: MEX Liquidity
+                        DSwap: REWA Liquidity
                       </h3>
                     </div>
                   </div>
@@ -1277,7 +1277,7 @@ const Home = () => {
                               <span className="text-lg">🎮</span>
                             </div>
                             <div className="font-medium text-gray-900 dark:text-white">
-                              CathenaItems{" "}
+                              DragonRealm Items{" "}
                               <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300">
                                 <span className="h-1.5 w-1.5 rounded-full bg-yellow-400 mr-1"></span>
                                 Verified
@@ -1307,7 +1307,7 @@ const Home = () => {
                               <span className="text-lg">🌀</span>
                             </div>
                             <div className="font-medium text-gray-900 dark:text-white">
-                              Portals Of Infinity{" "}
+                              Dharitri Gateways{" "}
                               <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">
                                 <span className="h-1.5 w-1.5 rounded-full bg-blue-400 mr-1"></span>
                                 Verified
@@ -1336,7 +1336,7 @@ const Home = () => {
                               <span className="text-lg">🏆</span>
                             </div>
                             <div className="font-medium text-gray-900 dark:text-white">
-                              Portal Achievements
+                              Gateway Badges
                             </div>
                           </div>
                         </td>

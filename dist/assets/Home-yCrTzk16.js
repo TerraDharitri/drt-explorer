@@ -9,9 +9,9 @@ import {
   f as l,
   g as d,
   h as o,
-} from "./index-DfoykQib.js";
+} from "./index-v_tBRMeY.js";
 import { g as c, r as x, u as m, L as h } from "./vendor-DKx09kD0.js";
-import { L as g } from "./Loading-J9bENTsc.js";
+import { L as g } from "./Loading-Bg3FSsJ4.js";
 import { f as u, s as p, t as f, a as y } from "./formatters-Qc2P36Ej.js";
 import {
   L as b,
@@ -25,9 +25,9 @@ import {
   i as E,
 } from "./charts-DzQ2rSjN.js";
 var T = {},
-  C = function () {
+  A = function () {
     return (
-      (C =
+      (A =
         Object.assign ||
         function (e) {
           for (var t, r = 1, a = arguments.length; r < a; r++)
@@ -35,10 +35,10 @@ var T = {},
               Object.prototype.hasOwnProperty.call(t, s) && (e[s] = t[s]);
           return e;
         }),
-      C.apply(this, arguments)
+      A.apply(this, arguments)
     );
   },
-  A = (function () {
+  C = (function () {
     function e(e, t, r) {
       var a = this;
       (this.endVal = t),
@@ -131,7 +131,7 @@ var T = {},
         (this.easeOutExpo = function (e, t, r, a) {
           return (r * (1 - Math.pow(2, (-10 * e) / a)) * 1024) / 1023 + t;
         }),
-        (this.options = C(C({}, this.defaults), r)),
+        (this.options = A(A({}, this.defaults), r)),
         (this.formattingFn = this.options.formattingFn
           ? this.options.formattingFn
           : this.formatNumber),
@@ -273,15 +273,15 @@ var T = {},
   })();
 const O = c(
   Object.freeze(
-    Object.defineProperty({ __proto__: null, CountUp: A }, Symbol.toStringTag, {
+    Object.defineProperty({ __proto__: null, CountUp: C }, Symbol.toStringTag, {
       value: "Module",
     })
   )
 );
 Object.defineProperty(T, "__esModule", { value: !0 });
-var D = x,
-  M = O;
-function F(e, t) {
+var M = x,
+  R = O;
+function D(e, t) {
   var r = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
     var a = Object.getOwnPropertySymbols(e);
@@ -293,22 +293,22 @@ function F(e, t) {
   }
   return r;
 }
-function P(e) {
+function F(e) {
   for (var t = 1; t < arguments.length; t++) {
     var r = null != arguments[t] ? arguments[t] : {};
     t % 2
-      ? F(Object(r), !0).forEach(function (t) {
+      ? D(Object(r), !0).forEach(function (t) {
           L(e, t, r[t]);
         })
       : Object.getOwnPropertyDescriptors
       ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-      : F(Object(r)).forEach(function (t) {
+      : D(Object(r)).forEach(function (t) {
           Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(r, t));
         });
   }
   return e;
 }
-function R(e) {
+function P(e) {
   var t = (function (e, t) {
     if ("object" != typeof e || !e) return e;
     var r = e[Symbol.toPrimitive];
@@ -323,7 +323,7 @@ function R(e) {
 }
 function L(e, t, r) {
   return (
-    (t = R(t)) in e
+    (t = P(t)) in e
       ? Object.defineProperty(e, t, {
           value: r,
           enumerable: !0,
@@ -440,22 +440,22 @@ var I =
   "undefined" != typeof window &&
   void 0 !== window.document &&
   void 0 !== window.document.createElement
-    ? D.useLayoutEffect
-    : D.useEffect;
-function G(e) {
-  var t = D.useRef(e);
+    ? M.useLayoutEffect
+    : M.useEffect;
+function H(e) {
+  var t = M.useRef(e);
   return (
     I(function () {
       t.current = e;
     }),
-    D.useCallback(function () {
+    M.useCallback(function () {
       for (var e = arguments.length, r = new Array(e), a = 0; a < e; a++)
         r[a] = arguments[a];
       return t.current.apply(void 0, r);
     }, [])
   );
 }
-var H = [
+var z = [
     "ref",
     "startOnMount",
     "enableReinitialize",
@@ -466,7 +466,7 @@ var H = [
     "onReset",
     "onUpdate",
   ],
-  z = {
+  Y = {
     decimal: ".",
     separator: ",",
     delay: null,
@@ -481,15 +481,15 @@ var H = [
     useGrouping: !0,
     useIndianSeparators: !1,
   },
-  X = function (e) {
+  q = function (e) {
     var t = Object.fromEntries(
         Object.entries(e).filter(function (e) {
           return void 0 !== U(e, 2)[1];
         })
       ),
-      r = D.useMemo(
+      r = M.useMemo(
         function () {
-          return P(P({}, z), t);
+          return F(F({}, Y), t);
         },
         [e]
       ),
@@ -502,11 +502,11 @@ var H = [
       o = r.onPauseResume,
       c = r.onReset,
       x = r.onUpdate,
-      m = W(r, H),
-      h = D.useRef(),
-      g = D.useRef(),
-      u = D.useRef(!1),
-      p = G(function () {
+      m = W(r, z),
+      h = M.useRef(),
+      g = M.useRef(),
+      u = M.useRef(!1),
+      p = H(function () {
         return (function (e, t) {
           var r = t.decimal,
             a = t.decimals,
@@ -526,7 +526,7 @@ var H = [
             f = t.scrollSpyDelay,
             y = t.scrollSpyOnce,
             b = t.plugin;
-          return new M.CountUp(e, i, {
+          return new R.CountUp(e, i, {
             startVal: x,
             duration: s,
             decimal: r,
@@ -547,13 +547,13 @@ var H = [
           });
         })("string" == typeof a ? a : a.current, m);
       }),
-      f = G(function (e) {
+      f = H(function (e) {
         var t = h.current;
         if (t && !e) return t;
         var r = p();
         return (h.current = r), r;
       }),
-      y = G(function () {
+      y = H(function () {
         var e = function () {
           return f(!0).start(function () {
             null == l || l({ pauseResume: b, reset: j, start: v, update: k });
@@ -562,26 +562,26 @@ var H = [
         i && i > 0 ? (g.current = setTimeout(e, 1e3 * i)) : e(),
           null == d || d({ pauseResume: b, reset: j, update: k });
       }),
-      b = G(function () {
+      b = H(function () {
         f().pauseResume(), null == o || o({ reset: j, start: v, update: k });
       }),
-      j = G(function () {
+      j = H(function () {
         f().el &&
           (g.current && clearTimeout(g.current),
           f().reset(),
           null == c || c({ pauseResume: b, start: v, update: k }));
       }),
-      k = G(function (e) {
+      k = H(function (e) {
         f().update(e), null == x || x({ pauseResume: b, reset: j, start: v });
       }),
-      v = G(function () {
+      v = H(function () {
         j(), y();
       }),
-      N = G(function (e) {
+      N = H(function (e) {
         s && (e && j(), y());
       });
     return (
-      D.useEffect(
+      M.useEffect(
         function () {
           u.current ? n && N(!0) : ((u.current = !0), N());
         },
@@ -600,7 +600,7 @@ var H = [
           e.formattingFn,
         ]
       ),
-      D.useEffect(
+      M.useEffect(
         function () {
           return function () {
             j();
@@ -611,19 +611,19 @@ var H = [
       { start: v, pauseResume: b, reset: j, update: k, getCountUp: f }
     );
   },
-  Y = ["className", "redraw", "containerProps", "children", "style"];
+  G = ["className", "redraw", "containerProps", "children", "style"];
 (T.default = function (e) {
   var t = e.className,
     r = e.redraw,
     a = e.containerProps,
     s = e.children,
     n = e.style,
-    i = W(e, Y),
-    l = D.useRef(null),
-    d = D.useRef(!1),
-    o = X(
-      P(
-        P({}, i),
+    i = W(e, G),
+    l = M.useRef(null),
+    d = M.useRef(!1),
+    o = q(
+      F(
+        F({}, i),
         {},
         {
           ref: l,
@@ -637,22 +637,22 @@ var H = [
     m = o.update,
     h = o.pauseResume,
     g = o.getCountUp,
-    u = G(function () {
+    u = H(function () {
       c();
     }),
-    p = G(function (t) {
+    p = H(function (t) {
       e.preserveValue || x(), m(t);
     }),
-    f = G(function () {
+    f = H(function () {
       ("function" != typeof e.children || l.current instanceof Element) && g();
     });
-  D.useEffect(
+  M.useEffect(
     function () {
       f();
     },
     [f]
   ),
-    D.useEffect(
+    M.useEffect(
       function () {
         d.current && p(e.end);
       },
@@ -660,13 +660,13 @@ var H = [
     );
   var y = r && e;
   return (
-    D.useEffect(
+    M.useEffect(
       function () {
         r && d.current && u();
       },
       [u, r, y]
     ),
-    D.useEffect(
+    M.useEffect(
       function () {
         !r && d.current && u();
       },
@@ -684,7 +684,7 @@ var H = [
         e.formattingFn,
       ]
     ),
-    D.useEffect(function () {
+    M.useEffect(function () {
       d.current = !0;
     }, []),
     "function" == typeof s
@@ -696,16 +696,16 @@ var H = [
           pauseResume: h,
           getCountUp: g,
         })
-      : D.createElement(
+      : M.createElement(
           "span",
           B({ className: t, ref: l, style: n }, a),
           void 0 !== e.start ? g().formattingFn(e.start) : ""
         )
   );
 }),
-  (T.useCountUp = X),
+  (T.useCountUp = q),
   j.register(k, v, N, w, S, V, E);
-const q = (e) =>
+const X = (e) =>
     null == e ? "0" : e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
   _ = () => {
     const [c, j] = x.useState(null),
@@ -713,16 +713,16 @@ const q = (e) =>
       [N, w] = x.useState([]),
       [S, V] = x.useState([]),
       [E, T] = x.useState([]),
-      [C, A] = x.useState(!0),
-      [O, D] = x.useState(null),
-      [M, F] = x.useState(""),
-      P = m(),
-      [R, L] = x.useState(14753e3),
+      [A, C] = x.useState(!0),
+      [O, M] = x.useState(null),
+      [R, D] = x.useState(""),
+      F = m(),
+      [P, L] = x.useState(14753e3),
       [B, W] = x.useState(504128649),
       [U, $] = x.useState(125e3),
-      [I, G] = x.useState(125e4),
-      [H, z] = x.useState(45e3),
-      [X, Y] = x.useState(3200),
+      [I, H] = x.useState(125e4),
+      [z, Y] = x.useState(45e3),
+      [q, G] = x.useState(3200),
       [_, Q] = x.useState({ northAmerica: 1250, percentage: 39 }),
       [J, K] = x.useState({ current: 125, roundTime: 6, roundsLeft: 4320 }),
       [Z, ee] = x.useState({
@@ -797,7 +797,7 @@ const q = (e) =>
     x.useEffect(() => {}, [le]),
       x.useEffect(() => {
         (async () => {
-          A(!0), D(null);
+          C(!0), M(null);
           try {
             await new Promise((e) => {
               setTimeout(() => {
@@ -888,7 +888,7 @@ const q = (e) =>
                     {
                       rank: 6,
                       symbol: "ESDT",
-                      name: "Elrond Standard Token",
+                      name: "dharitri Standard Token",
                       icon: "🪙",
                       totalTxns: 1425,
                     },
@@ -972,7 +972,7 @@ const q = (e) =>
                     },
                     {
                       rank: 7,
-                      name: "ELRONDAPESCLUB",
+                      name: "dharitriAPESCLUB",
                       icon: "🐵",
                       items: 1e4,
                       holders: 1119,
@@ -1007,7 +1007,7 @@ const q = (e) =>
               }, 800);
             });
           } catch (e) {
-            D("Failed to load dashboard data. Please try refreshing the page."),
+            M("Failed to load dashboard data. Please try refreshing the page."),
               j({
                 price: 0,
                 priceChange: 0,
@@ -1031,7 +1031,7 @@ const q = (e) =>
               V([]),
               T([]);
           } finally {
-            A(!1);
+            C(!1);
           }
         })();
       }, []);
@@ -1047,7 +1047,7 @@ const q = (e) =>
         "bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400"
       );
     };
-    return C
+    return A
       ? e.jsx("div", {
           className: "container mx-auto px-4 py-8",
           children: e.jsx(g, { className: "h-16 w-16 mx-auto my-20" }),
@@ -1089,15 +1089,15 @@ const q = (e) =>
                   }),
                   e.jsxs("form", {
                     onSubmit: (e) => {
-                      if ((e.preventDefault(), !M.trim())) return;
-                      const t = M.trim();
+                      if ((e.preventDefault(), !R.trim())) return;
+                      const t = R.trim();
                       t.startsWith("erd1") && t.length > 40
-                        ? P(`/account/${t}`)
+                        ? F(`/account/${t}`)
                         : t.startsWith("0x") || t.length >= 64
-                        ? P(`/transaction/${t}`)
+                        ? F(`/transaction/${t}`)
                         : isNaN(t)
-                        ? P(`/search?q=${encodeURIComponent(t)}`)
-                        : P(`/block/${t}`);
+                        ? F(`/search?q=${encodeURIComponent(t)}`)
+                        : F(`/block/${t}`);
                     },
                     className: "relative max-w-3xl",
                     children: [
@@ -1107,8 +1107,8 @@ const q = (e) =>
                           "Search by Address / Transaction / Block / Token",
                         className:
                           "w-full py-3 pl-12 pr-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50",
-                        value: M,
-                        onChange: (e) => F(e.target.value),
+                        value: R,
+                        onChange: (e) => D(e.target.value),
                       }),
                       e.jsx("button", {
                         type: "submit",
@@ -1125,7 +1125,7 @@ const q = (e) =>
             }),
             e.jsx("div", {
               className: "container mx-auto px-4",
-              children: C
+              children: A
                 ? e.jsx("div", {
                     className: "flex justify-center py-16",
                     children: e.jsx("div", {
@@ -1151,7 +1151,7 @@ const q = (e) =>
                               e.jsx("div", {
                                 className:
                                   "text-3xl font-bold text-gray-800 dark:text-teal-400",
-                                children: q(R),
+                                children: X(P),
                               }),
                             ],
                           }),
@@ -1167,7 +1167,7 @@ const q = (e) =>
                               e.jsx("div", {
                                 className:
                                   "text-3xl font-bold text-gray-800 dark:text-teal-400",
-                                children: q(B),
+                                children: X(B),
                               }),
                               e.jsx("div", {
                                 className:
@@ -1179,7 +1179,7 @@ const q = (e) =>
                                       className:
                                         "h-2 w-2 bg-green-400 rounded-full",
                                     }),
-                                    q(U),
+                                    X(U),
                                     " today",
                                   ],
                                 }),
@@ -1198,7 +1198,7 @@ const q = (e) =>
                               e.jsx("div", {
                                 className:
                                   "text-3xl font-bold text-gray-800 dark:text-teal-400",
-                                children: q(I),
+                                children: X(I),
                               }),
                               e.jsx("div", {
                                 className:
@@ -1210,7 +1210,7 @@ const q = (e) =>
                                       className:
                                         "h-2 w-2 bg-green-400 rounded-full",
                                     }),
-                                    q(H),
+                                    X(z),
                                     " active today",
                                     e.jsx("span", {
                                       className:
@@ -1234,7 +1234,7 @@ const q = (e) =>
                               e.jsx("div", {
                                 className:
                                   "text-3xl font-bold text-gray-800 dark:text-teal-400",
-                                children: q(X),
+                                children: X(q),
                               }),
                               e.jsx("div", {
                                 className:
@@ -1331,7 +1331,7 @@ const q = (e) =>
                                       e.jsxs("div", {
                                         className:
                                           "text-sm text-gray-800 dark:text-white font-medium",
-                                        children: ["$", q(Z.marketCap)],
+                                        children: ["$", X(Z.marketCap)],
                                       }),
                                     ],
                                   }),
@@ -1345,7 +1345,7 @@ const q = (e) =>
                                       e.jsxs("div", {
                                         className:
                                           "text-sm text-gray-800 dark:text-white font-medium",
-                                        children: ["$", q(Z.volume24h)],
+                                        children: ["$", X(Z.volume24h)],
                                       }),
                                     ],
                                   }),
@@ -1368,7 +1368,7 @@ const q = (e) =>
                                   e.jsxs("span", {
                                     className:
                                       "text-3xl font-bold text-primary dark:text-teal-400",
-                                    children: [q(te.total), " REWA"],
+                                    children: [X(te.total), " REWA"],
                                   }),
                                   e.jsxs("span", {
                                     className:
@@ -1422,7 +1422,7 @@ const q = (e) =>
                                       e.jsx("div", {
                                         className:
                                           "text-sm text-gray-800 dark:text-white font-medium",
-                                        children: q(te.circulatingSupply),
+                                        children: X(te.circulatingSupply),
                                       }),
                                     ],
                                   }),
@@ -1436,7 +1436,7 @@ const q = (e) =>
                                       e.jsx("div", {
                                         className:
                                           "text-sm text-gray-800 dark:text-white font-medium",
-                                        children: q(te.usersStaking),
+                                        children: X(te.usersStaking),
                                       }),
                                     ],
                                   }),
@@ -1474,7 +1474,7 @@ const q = (e) =>
                                     e.jsxs("div", {
                                       className:
                                         "text-xl font-bold text-gray-800 dark:text-white",
-                                      children: [q(ae.rewards), " REWA"],
+                                      children: [X(ae.rewards), " REWA"],
                                     }),
                                   ],
                                 }),
@@ -1488,7 +1488,7 @@ const q = (e) =>
                                     e.jsxs("div", {
                                       className:
                                         "text-xl font-bold text-gray-800 dark:text-white",
-                                      children: [q(ae.feesCaptured), " REWA"],
+                                      children: [X(ae.feesCaptured), " REWA"],
                                     }),
                                   ],
                                 }),
@@ -1502,7 +1502,7 @@ const q = (e) =>
                                     e.jsx("div", {
                                       className:
                                         "text-xl font-bold text-gray-800 dark:text-white",
-                                      children: q(ae.appsDeployed),
+                                      children: X(ae.appsDeployed),
                                     }),
                                   ],
                                 }),
@@ -1529,7 +1529,7 @@ const q = (e) =>
                                   e.jsx("div", {
                                     className:
                                       "text-2xl font-bold text-gray-800 dark:text-teal-400",
-                                    children: q(ne.total),
+                                    children: X(ne.total),
                                   }),
                                 ],
                               }),
@@ -1581,7 +1581,7 @@ const q = (e) =>
                                   e.jsx("div", {
                                     className:
                                       "text-xl font-bold text-gray-800 dark:text-teal-400",
-                                    children: q(ne.applications),
+                                    children: X(ne.applications),
                                   }),
                                 ],
                               }),
@@ -1595,7 +1595,7 @@ const q = (e) =>
                                   e.jsx("div", {
                                     className:
                                       "text-xl font-bold text-gray-800 dark:text-indigo-400",
-                                    children: q(ne.standard),
+                                    children: X(ne.standard),
                                   }),
                                 ],
                               }),

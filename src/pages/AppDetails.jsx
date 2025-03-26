@@ -39,7 +39,7 @@ const mockAppData = {
     id: "maiar-exchange",
     name: "Maiar Exchange",
     description:
-      "A revolutionary decentralized exchange built on Elrond Network, enabling the trading of tokenized assets with near-instant settlements.",
+      "A revolutionary decentralized exchange built on dharitri Network, enabling the trading of tokenized assets with near-instant settlements.",
     longDescription:
       "Maiar Exchange is a fully automated liquidity protocol and decentralized exchange. It removes the need for trusted intermediaries, prioritizing decentralization, censorship resistance, and security. Anyone can become a liquidity provider by depositing equivalent values of two tokens, earning fees from trades. The exchange ensures high liquidity and low slippage through an automated market maker model. The MEXT token, native to Maiar Exchange, provides governance rights and entitles holders to a share of protocol fees.",
     category: "defi",
@@ -60,7 +60,7 @@ const mockAppData = {
       website: "https://maiar.exchange",
       twitter: "https://twitter.com/MaiarExchange",
       discord: "https://discord.gg/maiarexchange",
-      github: "https://github.com/ElrondNetwork",
+      github: "https://github.com/dharitriNetwork",
     },
     features: [
       "Automated Market Maker (AMM)",
@@ -123,7 +123,7 @@ const mockAppData = {
     id: "deadrare",
     name: "DeadRare",
     description:
-      "The premier NFT marketplace on Elrond, featuring digital collectibles, art, and gaming assets.",
+      "The premier NFT marketplace on dharitri, featuring digital collectibles, art, and gaming assets.",
     longDescription:
       "DeadRare is the leading NFT marketplace on the Dharitri blockchain. It provides a platform for creators, collectors, and traders to discover, buy, sell, and auction unique digital assets. DeadRare supports various NFT categories including art, collectibles, gaming items, virtual real estate, and more.",
     category: "nft",

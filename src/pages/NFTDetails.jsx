@@ -32,9 +32,9 @@ ChartJS.register(
 
 // Mock data for a specific NFT collection
 const mockNFTData = {
-  "deadrare-elrond-gorillaz": {
-    id: "deadrare-elrond-gorillaz",
-    name: "Elrond Gorillaz",
+  "deadrare-dharitri-gorillaz": {
+    id: "deadrare-dharitri-gorillaz",
+    name: "dharitri Gorillaz",
     ticker: "GORILLAZ",
     description:
       "A collection of 5,000 unique Gorillaz NFTs, meticulously crafted with distinct traits and rarities. Each Gorillaz NFT grants exclusive access to the Gorillaz DAO and future ecosystem benefits.",
@@ -45,9 +45,9 @@ const mockNFTData = {
     volume: 125600,
     image: "https://placehold.co/800x400/10b981/ffffff?text=GORILLAZ",
     links: {
-      website: "https://elrondgorillaz.io",
-      twitter: "https://twitter.com/ElrondGorillaz",
-      discord: "https://discord.gg/elrondgorillaz",
+      website: "https://dharitrigorillaz.io",
+      twitter: "https://twitter.com/dharitriGorillaz",
+      discord: "https://discord.gg/dharitrigorillaz",
     },
     priceHistory: [
       { date: "2023-06-01", price: 0.28 },
