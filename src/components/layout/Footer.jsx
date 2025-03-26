@@ -21,7 +21,11 @@ const Footer = () => {
       icon: <FaTwitter />,
       url: "https://twitter.com/dharitri",
     },
-    { name: "GitHub", icon: <FaGithub />, url: "https://github.com/TerraDharitri" },
+    {
+      name: "GitHub",
+      icon: <FaGithub />,
+      url: "https://github.com/TerraDharitri",
+    },
     { name: "Telegram", icon: <FaTelegram />, url: "https://t.me/dharitri" },
     {
       name: "Discord",
@@ -38,7 +42,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <img
-                src="/drt-logo.png"
+                src="./drt-logo.png"
                 alt="Dharitri Logo"
                 className="h-8 w-auto mr-2"
                 onError={(e) => {

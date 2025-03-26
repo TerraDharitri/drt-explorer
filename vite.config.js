@@ -6,6 +6,7 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === "production";
 
   return {
+    base: "/drt-explorer/", // Correct format for GitHub Pages - just the repo name with slashes
     plugins: [react()],
     server: {
       port: 3000,
@@ -28,6 +29,9 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
+      // Ensure assets from public directory are copied to dist
+      assetsInlineLimit: 0,
     },
+    publicDir: "public", // Explicitly define public directory
   };
 });

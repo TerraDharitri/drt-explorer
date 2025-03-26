@@ -106,7 +106,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src="/drt-logo.png"
+              src="./drt-logo.png"
               alt="Dharitri Explorer"
               className="h-8 w-auto"
               onError={(e) => {

@@ -16,6 +16,9 @@ import {
   FaGlobe,
   FaImage,
   FaTicketAlt,
+  FaClock,
+  FaChartBar,
+  FaCode,
 } from "react-icons/fa";
 import Card from "../components/common/Card";
 import StatCard from "../components/common/StatCard";
@@ -30,6 +33,34 @@ import {
   shortenAddress,
   formatCrypto,
 } from "../utils/formatters";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+  Filler,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+
+// Register ChartJS components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+  Filler
+);
+
+// Utility function to format large numbers with commas
+const formatLargeNumber = (num) => {
+  if (num === undefined || num === null) return "0";
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 const Home = () => {
   const [stats, setStats] = useState(null);
@@ -41,6 +72,102 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+
+  // Analytics dashboard state
+  const [blockHeight, setBlockHeight] = useState(14753000);
+  const [totalTransactions, setTotalTransactions] = useState(504128649);
+  const [dailyTransactions, setDailyTransactions] = useState(125000);
+  const [accountsTotal, setAccountsTotal] = useState(1250000);
+  const [activeAccounts, setActiveAccounts] = useState(45000);
+  const [validatorsCount, setValidatorsCount] = useState(3200);
+  const [validatorRegions, setValidatorRegions] = useState({
+    northAmerica: 1250,
+    percentage: 39,
+  });
+  const [epochData, setEpochData] = useState({
+    current: 125,
+    roundTime: 6,
+    roundsLeft: 4320,
+  });
+  const [priceData, setPriceData] = useState({
+    current: 38.42,
+    change: 3.5,
+    marketCap: 854000000,
+    volume24h: 12500000,
+    history: [
+      32, 33, 32.5, 33.5, 34, 33.8, 34.2, 35, 34.8, 35.5, 36, 35.8, 36.5, 37,
+      36.8, 37.2, 37.5, 37.3, 37.8, 38, 37.9, 38.2, 38.1, 38.3, 38.5, 38.4,
+      38.6, 38.5, 38.7, 38.9,
+    ],
+  });
+  const [stakingData, setStakingData] = useState({
+    total: 12500000,
+    percentage: 62.5,
+    circulatingSupply: 20000000,
+    usersStaking: 8520,
+    apr: 9.8,
+    history: [
+      11000000, 11100000, 11200000, 11250000, 11300000, 11350000, 11400000,
+      11450000, 11500000, 11550000, 11600000, 11650000, 11700000, 11750000,
+      11800000, 11850000, 11900000, 11950000, 12000000, 12050000, 12100000,
+      12150000, 12200000, 12250000, 12300000, 12350000, 12400000, 12450000,
+      12500000, 12550000,
+    ],
+  });
+  const [developerData, setDeveloperData] = useState({
+    rewards: 350000,
+    feesCaptured: 180000,
+    appsDeployed: 820,
+  });
+  const [transactionChartData, setTransactionChartData] = useState({
+    total: 54328761,
+    applications: 41328761,
+    standard: 13000000,
+    history: {
+      labels: Array(30)
+        .fill("")
+        .map((_, i) => `Day ${i + 1}`),
+      datasets: [
+        {
+          label: "Applications",
+          data: [
+            380000, 390000, 385000, 400000, 410000, 405000, 415000, 420000,
+            430000, 425000, 435000, 440000, 445000, 450000, 445000, 460000,
+            465000, 470000, 475000, 480000, 485000, 490000, 500000, 505000,
+            510000, 515000, 520000, 525000, 530000, 540000,
+          ],
+          borderColor: "#2dd4bf",
+          backgroundColor: "rgba(45, 212, 191, 0.4)",
+          fill: true,
+          borderWidth: 2,
+          tension: 0.4,
+        },
+        {
+          label: "Standard",
+          data: [
+            150000, 155000, 152000, 158000, 160000, 162000, 165000, 168000,
+            170000, 172000, 175000, 178000, 180000, 182000, 185000, 188000,
+            190000, 192000, 195000, 198000, 200000, 202000, 205000, 208000,
+            210000, 212000, 215000, 218000, 220000, 225000,
+          ],
+          borderColor: "#818cf8",
+          backgroundColor: "rgba(129, 140, 248, 0.4)",
+          fill: true,
+          borderWidth: 2,
+          tension: 0.4,
+        },
+      ],
+    },
+  });
+  const [timeRange, setTimeRange] = useState("30d");
+
+  // Update chart data when time range changes
+  useEffect(() => {
+    // This would typically fetch data from API based on timeRange
+    // For now, we're just using our mock data
+    console.log(`Time range changed to ${timeRange}`);
+    // Here you would fetch new data and update transactionChartData
+  }, [timeRange]);
 
   useEffect(() => {
     // In a real app, we'd fetch this data from API
@@ -529,460 +656,1186 @@ const Home = () => {
           </div>
         ) : (
           <>
-            {/* Overview Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {/* Analytics Dashboard - Top Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              {/* Block Height Card */}
               <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6">
-                <div className="flex items-center mb-4">
-                  <div className="rounded-full bg-blue-100 dark:bg-blue-900/20 p-3 mr-4">
-                    <FaCoins className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                  Block Height
+                </h3>
+                <div className="text-3xl font-bold text-gray-800 dark:text-teal-400">
+                  {formatLargeNumber(blockHeight)}
+                </div>
+              </div>
+
+              {/* Total Transactions Card */}
+              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                  Total Transactions
+                </h3>
+                <div className="text-3xl font-bold text-gray-800 dark:text-teal-400">
+                  {formatLargeNumber(totalTransactions)}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                  <span className="flex items-center gap-1">
+                    <span className="h-2 w-2 bg-green-400 rounded-full"></span>
+                    {formatLargeNumber(dailyTransactions)} today
+                  </span>
+                </div>
+              </div>
+
+              {/* Total Accounts Card */}
+              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                  Total Accounts
+                </h3>
+                <div className="text-3xl font-bold text-gray-800 dark:text-teal-400">
+                  {formatLargeNumber(accountsTotal)}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                  <span className="flex items-center gap-1">
+                    <span className="h-2 w-2 bg-green-400 rounded-full"></span>
+                    {formatLargeNumber(activeAccounts)} active today
+                    <span className="ml-1 text-xs bg-teal-400 text-white rounded px-0.5">
+                      1
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Validators Card */}
+              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                  Validators
+                </h3>
+                <div className="text-3xl font-bold text-gray-800 dark:text-teal-400">
+                  {formatLargeNumber(validatorsCount)}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                  <span className="flex items-center gap-1">
+                    <span>
+                      North America {validatorRegions.northAmerica} nodes (
+                      {validatorRegions.percentage}%)
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Analytics Dashboard - Financial Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {/* Price Card */}
+              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 relative overflow-hidden">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                  Current Price
+                </h3>
+                <div className="flex items-center gap-2">
+                  <span className="text-3xl font-bold text-gray-800 dark:text-white">
+                    ${priceData.current}
+                  </span>
+                  <span
+                    className={`text-sm ${
+                      priceData.change >= 0 ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    {priceData.change}% today
+                  </span>
+                </div>
+
+                <div className="h-24 mt-4 mb-2">
+                  <Line
+                    data={{
+                      labels: Array(30).fill(""),
+                      datasets: [
+                        {
+                          data: priceData.history,
+                          borderColor: "#10b981",
+                          backgroundColor: "rgba(16, 185, 129, 0.1)",
+                          borderWidth: 2,
+                          tension: 0.4,
+                          fill: true,
+                          pointRadius: 0,
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: false,
+                        },
+                        tooltip: {
+                          enabled: false,
+                        },
+                      },
+                      scales: {
+                        x: {
+                          display: false,
+                        },
+                        y: {
+                          display: false,
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      Market Cap
+                    </div>
+                    <div className="text-sm text-gray-800 dark:text-white font-medium">
+                      ${formatLargeNumber(priceData.marketCap)}
+                    </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold">REWA Price</h3>
-                    <div className="flex items-center">
-                      <p className="text-2xl font-bold">
-                        ${stats?.price?.toFixed(2) || "0.00"}
-                      </p>
-                      <span
-                        className={`ml-2 text-sm ${getTrendClass(
-                          stats?.priceChange || 0
-                        )}`}
-                      >
-                        {stats?.priceChange > 0 ? "+" : ""}
-                        {stats?.priceChange?.toFixed(2) || "0.00"}%
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      24h Volume
+                    </div>
+                    <div className="text-sm text-gray-800 dark:text-white font-medium">
+                      ${formatLargeNumber(priceData.volume24h)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Staking Card */}
+              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 relative overflow-hidden">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                  Total Staked
+                </h3>
+                <div className="flex items-center gap-2">
+                  <span className="text-3xl font-bold text-primary dark:text-teal-400">
+                    {formatLargeNumber(stakingData.total)} EGLD
+                  </span>
+                  <span className="text-sm text-primary dark:text-teal-400">
+                    ({stakingData.percentage}%)
+                  </span>
+                </div>
+
+                <div className="h-24 mt-4 mb-2">
+                  <Line
+                    data={{
+                      labels: Array(30).fill(""),
+                      datasets: [
+                        {
+                          data: stakingData.history,
+                          borderColor: "#2dd4bf",
+                          backgroundColor: "rgba(45, 212, 191, 0.1)",
+                          borderWidth: 2,
+                          tension: 0.4,
+                          fill: true,
+                          pointRadius: 0,
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: false,
+                        },
+                        tooltip: {
+                          enabled: false,
+                        },
+                      },
+                      scales: {
+                        x: {
+                          display: false,
+                        },
+                        y: {
+                          display: false,
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                <div className="grid grid-cols-3 gap-4 mt-4">
+                  <div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      Circulating Supply
+                    </div>
+                    <div className="text-sm text-gray-800 dark:text-white font-medium">
+                      {formatLargeNumber(stakingData.circulatingSupply)}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      Users Staking
+                    </div>
+                    <div className="text-sm text-gray-800 dark:text-white font-medium">
+                      {formatLargeNumber(stakingData.usersStaking)}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      Average APR
+                    </div>
+                    <div className="text-sm text-gray-800 dark:text-white font-medium">
+                      {stakingData.apr}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Developer Rewards Card */}
+              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                      Developer Rewards
+                    </h3>
+                    <div className="text-xl font-bold text-gray-800 dark:text-white">
+                      {formatLargeNumber(developerData.rewards)} EGLD
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                      Fees Captured
+                    </h3>
+                    <div className="text-xl font-bold text-gray-800 dark:text-white">
+                      {formatLargeNumber(developerData.feesCaptured)} EGLD
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                      Applications Deployed
+                    </h3>
+                    <div className="text-xl font-bold text-gray-800 dark:text-white">
+                      {formatLargeNumber(developerData.appsDeployed)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Analytics Dashboard - Transaction Chart */}
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 mb-10">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div>
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                    Total Transactions
+                  </h3>
+                  <div className="text-2xl font-bold text-gray-800 dark:text-teal-400">
+                    {formatLargeNumber(transactionChartData.total)}
+                  </div>
+                </div>
+
+                <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-1 mt-4 md:mt-0 inline-flex">
+                  <button
+                    className={`px-3 py-1 text-sm rounded-md ${
+                      timeRange === "30d" ? "bg-white dark:bg-gray-700" : ""
+                    }`}
+                    onClick={() => setTimeRange("30d")}
+                  >
+                    30d
+                  </button>
+                  <button
+                    className={`px-3 py-1 text-sm rounded-md ${
+                      timeRange === "60d" ? "bg-white dark:bg-gray-700" : ""
+                    }`}
+                    onClick={() => setTimeRange("60d")}
+                  >
+                    60d
+                  </button>
+                  <button
+                    className={`px-3 py-1 text-sm rounded-md ${
+                      timeRange === "90d" ? "bg-white dark:bg-gray-700" : ""
+                    }`}
+                    onClick={() => setTimeRange("90d")}
+                  >
+                    90d
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <h4 className="text-sm text-gray-500 dark:text-gray-400">
+                    Applications
+                  </h4>
+                  <div className="text-xl font-bold text-gray-800 dark:text-teal-400">
+                    {formatLargeNumber(transactionChartData.applications)}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm text-gray-500 dark:text-gray-400">
+                    Standard
+                  </h4>
+                  <div className="text-xl font-bold text-gray-800 dark:text-indigo-400">
+                    {formatLargeNumber(transactionChartData.standard)}
+                  </div>
+                </div>
+              </div>
+
+              <div className="h-64">
+                <Line
+                  data={transactionChartData.history}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: {
+                        display: false,
+                      },
+                      tooltip: {
+                        mode: "index",
+                        intersect: false,
+                      },
+                    },
+                    hover: {
+                      mode: "nearest",
+                      intersect: false,
+                    },
+                    scales: {
+                      x: {
+                        display: false,
+                      },
+                      y: {
+                        display: false,
+                        suggestedMin: 0,
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Most Used Applications Section */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-black rounded-xl shadow-lg p-6 mb-10 overflow-hidden transition-all duration-300 border border-gray-100 dark:border-gray-800">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white group flex items-center">
+                  Most Used Applications{" "}
+                  <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                    (daily)
+                  </span>
+                  <span className="w-2 h-2 bg-teal-400 rounded-full ml-3 animate-pulse"></span>
+                </h2>
+                <Link
+                  to="/dashboard"
+                  className="bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md text-sm shadow-sm transition-all duration-200 hover:shadow-md flex items-center group"
+                >
+                  Dashboard
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Link>
+              </div>
+
+              <div className="flex space-x-4 overflow-x-auto pb-4 scrollbar-hide -mx-1 px-1">
+                {/* App Card 1 */}
+                <div className="flex-shrink-0 w-56 bg-white dark:bg-gray-800 hover:dark:bg-gray-750 rounded-lg overflow-hidden shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                        1
+                      </span>
+                      <span className="text-teal-500 dark:text-teal-400 text-sm font-medium">
+                        15,482 Txn
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Market Cap: ${formatNumber(stats?.marketCap || 0)}
-                    </p>
+                    <div className="flex flex-col items-center mt-4">
+                      <div className="w-24 h-24 bg-gray-100 dark:bg-black rounded-full flex items-center justify-center mb-3 shadow-inner">
+                        <div className="w-12 h-12 border-2 border-gray-900 dark:border-white rounded-full"></div>
+                      </div>
+                      <h3 className="text-gray-900 dark:text-white font-medium text-center group-hover:text-primary">
+                        Pulsar Money: Quests
+                      </h3>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6">
-                <div className="flex items-center mb-4">
-                  <div className="rounded-full bg-green-100 dark:bg-green-900/20 p-3 mr-4">
-                    <FaExchangeAlt className="h-6 w-6 text-green-600 dark:text-green-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">Transactions</h3>
-                    <p className="text-2xl font-bold">
-                      {formatNumber(stats?.totalTransactions || 0)}
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      TPS: {stats?.tps || 0}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6">
-                <div className="flex items-center mb-4">
-                  <div className="rounded-full bg-purple-100 dark:bg-purple-900/20 p-3 mr-4">
-                    <FaUsers className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">Accounts</h3>
-                    <p className="text-2xl font-bold">
-                      {formatNumber(stats?.accounts || 0)}
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Active: {formatNumber(stats?.activeAccounts24h || 0)}{" "}
-                      (24h)
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Secondary Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-10">
-              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4">
-                <div className="flex items-center">
-                  <FaCubes className="h-5 w-5 text-gray-500 mr-2" />
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Block Height
-                  </h3>
-                </div>
-                <p className="text-xl font-semibold mt-2">
-                  {formatNumber(stats?.blockHeight || 0)}
-                </p>
-              </div>
-
-              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4">
-                <div className="flex items-center">
-                  <FaServer className="h-5 w-5 text-gray-500 mr-2" />
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Validators
-                  </h3>
-                </div>
-                <p className="text-xl font-semibold mt-2">
-                  {formatNumber(stats?.activeValidators || 0)}
-                </p>
-              </div>
-
-              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4">
-                <div className="flex items-center">
-                  <FaChartPie className="h-5 w-5 text-gray-500 mr-2" />
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Staked
-                  </h3>
-                </div>
-                <p className="text-xl font-semibold mt-2">
-                  {stats?.stakedPercent?.toFixed(1) || "0.0"}%
-                </p>
-              </div>
-
-              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4">
-                <div className="flex items-center">
-                  <FaCoins className="h-5 w-5 text-gray-500 mr-2" />
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Supply
-                  </h3>
-                </div>
-                <p className="text-xl font-semibold mt-2">
-                  {formatNumber(stats?.circulatingSupply || 0)} REWA
-                </p>
-              </div>
-
-              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4">
-                <div className="flex items-center">
-                  <FaGlobe className="h-5 w-5 text-gray-500 mr-2" />
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    NFTs
-                  </h3>
-                </div>
-                <p className="text-xl font-semibold mt-2">
-                  {formatNumber(stats?.nfts || 0)}
-                </p>
-              </div>
-
-              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4">
-                <div className="flex items-center">
-                  <FaNetworkWired className="h-5 w-5 text-gray-500 mr-2" />
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Smart Contracts
-                  </h3>
-                </div>
-                <p className="text-xl font-semibold mt-2">
-                  {formatNumber(stats?.smartContracts || 0)}
-                </p>
-              </div>
-            </div>
-
-            {/* Most Transacted Tokens and NFTs Section */}
-            <div className="flex flex-col md:flex-row gap-8 mb-10">
-              <div className="w-full md:w-1/2">
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden">
-                  <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
-                    <h2 className="text-xl font-bold flex items-center">
-                      <FaCoins className="mr-2 text-primary" />
-                      Most Transacted Tokens{" "}
-                      <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
-                        (Daily)
+                {/* App Card 2 */}
+                <div className="flex-shrink-0 w-56 bg-white dark:bg-gray-800 hover:dark:bg-gray-750 rounded-lg overflow-hidden shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                        2
                       </span>
-                    </h2>
-                    <Link
-                      to="/tokens"
-                      className="text-primary hover:text-primary-dark flex items-center text-sm"
-                    >
-                      View All <FaAngleRight className="ml-1" />
-                    </Link>
+                      <span className="text-teal-500 dark:text-teal-400 text-sm font-medium">
+                        14,643 Txn
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center mt-4">
+                      <div className="w-24 h-24 bg-orange-400 rounded-full flex items-center justify-center mb-3 shadow-lg">
+                        <span className="text-4xl">🐦</span>
+                      </div>
+                      <h3 className="text-gray-900 dark:text-white font-medium text-center">
+                        Scratch Bot
+                      </h3>
+                    </div>
                   </div>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full">
-                      <thead className="bg-black">
-                        <tr>
-                          <th
-                            scope="col"
-                            className="w-1/6 px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-                          >
-                            Rank
-                          </th>
-                          <th
-                            scope="col"
-                            className="w-3/6 px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-                          >
-                            Token
-                          </th>
-                          <th
-                            scope="col"
-                            className="w-2/6 px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider"
-                          >
-                            Total Txn
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-                        {mostTransactedTokens.map((token) => (
-                          <tr
-                            key={token.rank}
-                            className="hover:bg-gray-50 dark:hover:bg-gray-800"
-                          >
-                            <td className="w-1/6 px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                              {token.rank}
-                            </td>
-                            <td className="w-3/6 px-6 py-4 whitespace-nowrap">
-                              <div className="flex items-center">
-                                <span className="text-xl mr-2">
-                                  {token.icon}
-                                </span>
-                                <div>
-                                  <Link
-                                    to={`/token/${token.symbol}`}
-                                    className="text-primary hover:underline"
-                                  >
-                                    {token.symbol}
-                                  </Link>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                                    {token.name}
-                                  </p>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="w-2/6 px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">
-                              {formatNumber(token.totalTxns)}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                </div>
+
+                {/* App Card 3 */}
+                <div className="flex-shrink-0 w-56 bg-white dark:bg-gray-800 hover:dark:bg-gray-750 rounded-lg overflow-hidden shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                        3
+                      </span>
+                      <span className="text-teal-500 dark:text-teal-400 text-sm font-medium">
+                        6,806 Txn
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center mt-4">
+                      <div className="w-24 h-24 bg-gray-100 dark:bg-black rounded-full flex items-center justify-center mb-3 shadow-inner">
+                        <span className="text-6xl text-teal-400">x</span>
+                      </div>
+                      <h3 className="text-gray-900 dark:text-white font-medium text-center">
+                        xPortal: Claim XP Shard 1
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+
+                {/* App Card 4 */}
+                <div className="flex-shrink-0 w-56 bg-white dark:bg-gray-800 hover:dark:bg-gray-750 rounded-lg overflow-hidden shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                        4
+                      </span>
+                      <span className="text-teal-500 dark:text-teal-400 text-sm font-medium">
+                        5,017 Txn
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center mt-4">
+                      <div className="w-24 h-24 bg-gray-100 dark:bg-black rounded-full flex items-center justify-center mb-3 shadow-inner">
+                        <span className="text-6xl text-blue-400">⚡</span>
+                      </div>
+                      <h3 className="text-gray-900 dark:text-white font-medium text-center">
+                        xExchange: Fees Collector
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+
+                {/* App Card 5 */}
+                <div className="flex-shrink-0 w-56 bg-white dark:bg-gray-800 hover:dark:bg-gray-750 rounded-lg overflow-hidden shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                        5
+                      </span>
+                      <span className="text-teal-500 dark:text-teal-400 text-sm font-medium">
+                        4,890 Txn
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center mt-4">
+                      <div className="w-24 h-24 bg-teal-400 rounded-full flex items-center justify-center mb-3 shadow-lg">
+                        <span className="text-4xl">🦫</span>
+                      </div>
+                      <h3 className="text-gray-900 dark:text-white font-medium text-center">
+                        BOBER: Flip
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+
+                {/* App Card 6 */}
+                <div className="flex-shrink-0 w-56 bg-white dark:bg-gray-800 hover:dark:bg-gray-750 rounded-lg overflow-hidden shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                        6
+                      </span>
+                      <span className="text-teal-500 dark:text-teal-400 text-sm font-medium">
+                        4,725 Txn
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center mt-4">
+                      <div className="w-24 h-24 bg-gray-100 dark:bg-black rounded-full flex items-center justify-center mb-3 shadow-inner">
+                        <span className="text-5xl">💱</span>
+                      </div>
+                      <h3 className="text-gray-900 dark:text-white font-medium text-center">
+                        xExchange: MEX Liquidity
+                      </h3>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="w-full md:w-1/2">
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden">
-                  <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
-                    <h2 className="text-xl font-bold flex items-center">
-                      <FaImage className="mr-2 text-primary" />
-                      Most Transacted NFTs{" "}
-                      <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
-                        (Daily)
-                      </span>
-                    </h2>
-                    <Link
-                      to="/nfts"
-                      className="text-primary hover:text-primary-dark flex items-center text-sm"
+              {/* Navigation Arrows - Optional */}
+              <div className="flex justify-end mt-4">
+                <button className="w-8 h-8 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-md mr-2 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-gray-800 dark:text-gray-200"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <button className="w-8 h-8 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-gray-800 dark:text-gray-200"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Most Transacted Sections - Two-column layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+              {/* Most Transacted NFTs Section */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-black rounded-xl shadow-lg overflow-hidden transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-800">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white group flex items-center">
+                    Most Transacted NFTs{" "}
+                    <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                      (Daily)
+                    </span>
+                  </h2>
+                  <Link
+                    to="/dashboard/nfts"
+                    className="bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md text-sm shadow-sm transition-all duration-200 hover:shadow-md flex items-center group"
+                  >
+                    View Dashboard
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                      View All <FaAngleRight className="ml-1" />
-                    </Link>
-                  </div>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full">
-                      <thead className="bg-black">
-                        <tr>
-                          <th
-                            scope="col"
-                            className="w-1/12 px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-                          >
-                            Rank
-                          </th>
-                          <th
-                            scope="col"
-                            className="w-5/12 px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-                          >
-                            Collection
-                          </th>
-                          <th
-                            scope="col"
-                            className="w-2/12 px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider"
-                          >
-                            Items
-                          </th>
-                          <th
-                            scope="col"
-                            className="w-2/12 px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider"
-                          >
-                            Holders
-                          </th>
-                          <th
-                            scope="col"
-                            className="w-2/12 px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider"
-                          >
-                            Total Txn
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-                        {mostTransactedNFTs.map((nft) => (
-                          <tr
-                            key={nft.rank}
-                            className="hover:bg-gray-50 dark:hover:bg-gray-800"
-                          >
-                            <td className="w-1/12 px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                              {nft.rank}
-                            </td>
-                            <td className="w-5/12 px-6 py-4 whitespace-nowrap">
-                              <div className="flex items-center">
-                                <span className="text-xl mr-2">{nft.icon}</span>
-                                <Link
-                                  to={`/nft/${nft.name}`}
-                                  className="text-primary hover:underline"
-                                >
-                                  {nft.name}
-                                </Link>
-                              </div>
-                            </td>
-                            <td className="w-2/12 px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">
-                              {formatNumber(nft.items)}
-                            </td>
-                            <td className="w-2/12 px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">
-                              {formatNumber(nft.holders)}
-                            </td>
-                            <td className="w-2/12 px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">
-                              {formatNumber(nft.totalTxns)}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-gray-50 dark:bg-gray-800 text-left">
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-16">
+                          Rank
+                        </th>
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                          Token
+                        </th>
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">
+                          Items
+                        </th>
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">
+                          Holders
+                        </th>
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">
+                          Total Txn
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                      {/* NFT Row 1 */}
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          1
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">🎮</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              CathenaItems{" "}
+                              <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300">
+                                <span className="h-1.5 w-1.5 rounded-full bg-yellow-400 mr-1"></span>
+                                Verified
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          225,826
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          7,868
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          986
+                        </td>
+                      </tr>
+
+                      {/* NFT Rows 2-5 */}
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          2
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">🌀</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              Portals Of Infinity{" "}
+                              <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">
+                                <span className="h-1.5 w-1.5 rounded-full bg-blue-400 mr-1"></span>
+                                Verified
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          17
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          36,537
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          435
+                        </td>
+                      </tr>
+
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          3
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">🏆</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              Portal Achievements
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          15
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          169,889
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          409
+                        </td>
+                      </tr>
+
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          4
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-brown-100 dark:bg-yellow-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">🪵</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              Wood
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          1
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          376
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          122
+                        </td>
+                      </tr>
+
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          5
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-gray-100 dark:bg-gray-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">🪨</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              Stone
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          1
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          219
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          122
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="bg-gray-50 dark:bg-gray-800/30 py-3 px-6 border-t border-gray-200 dark:border-gray-700">
+                  <Link
+                    to="/nfts"
+                    className="text-primary hover:text-primary-dark text-sm font-medium flex items-center"
+                  >
+                    View All NFTs
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Most Transacted Tokens Section */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-black rounded-xl shadow-lg overflow-hidden transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-800">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white group flex items-center">
+                    Most Transacted Tokens{" "}
+                    <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                      (Daily)
+                    </span>
+                  </h2>
+                  <Link
+                    to="/dashboard/tokens"
+                    className="bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md text-sm shadow-sm transition-all duration-200 hover:shadow-md flex items-center group"
+                  >
+                    Dashboard
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-gray-50 dark:bg-gray-800 text-left">
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-16">
+                          Rank
+                        </th>
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                          Token
+                        </th>
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">
+                          Total Txn
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                      {/* Token Rows 1-5 */}
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          1
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">🪙</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              REWA{" "}
+                              <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">
+                                <span className="h-1.5 w-1.5 rounded-full bg-blue-400 mr-1"></span>
+                                Verified
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          18,834
+                        </td>
+                      </tr>
+
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          2
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">💵</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              USDC{" "}
+                              <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">
+                                <span className="h-1.5 w-1.5 rounded-full bg-green-400 mr-1"></span>
+                                Verified
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          5,614
+                        </td>
+                      </tr>
+
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          3
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">🪙</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              BNB
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          4,775
+                        </td>
+                      </tr>
+
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          4
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">💎</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              EGLD{" "}
+                              <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300">
+                                <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 mr-1"></span>
+                                Verified
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          2,461
+                        </td>
+                      </tr>
+
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors">
+                        <td className="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                          5
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-8 w-8 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center mr-3">
+                              <span className="text-lg">🔄</span>
+                            </div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              MEX
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
+                          1,488
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="bg-gray-50 dark:bg-gray-800/30 py-3 px-6 border-t border-gray-200 dark:border-gray-700">
+                  <Link
+                    to="/tokens"
+                    className="text-primary hover:text-primary-dark text-sm font-medium flex items-center"
+                  >
+                    View All Tokens
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
                 </div>
               </div>
             </div>
 
-            {/* Tables Section */}
-            <div className="flex flex-col md:flex-row gap-8 mb-10">
-              <div className="w-full md:w-1/2">
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden">
-                  <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
-                    <h2 className="text-xl font-bold flex items-center">
-                      <FaExchangeAlt className="mr-2 text-primary" />
-                      Latest Transactions
-                    </h2>
-                    <Link
-                      to="/transactions"
-                      className="text-primary hover:text-primary-dark flex items-center text-sm"
+            {/* Recent Blocks and Transactions - Two-column layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+              {/* Recent Blocks Section */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-black rounded-xl shadow-lg overflow-hidden transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-800">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white group flex items-center">
+                    <FaCubes className="mr-3 text-blue-500 dark:text-blue-400" />
+                    Latest Blocks
+                    <span className="w-2 h-2 bg-blue-400 rounded-full ml-3 animate-pulse"></span>
+                  </h2>
+                  <Link
+                    to="/blocks"
+                    className="bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md text-sm shadow-sm transition-all duration-200 hover:shadow-md flex items-center group"
+                  >
+                    View All
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                      View All <FaAngleRight className="ml-1" />
-                    </Link>
-                  </div>
-                  <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {transactions.map((tx) => (
-                      <div
-                        key={tx.hash}
-                        className="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800"
-                      >
-                        <div className="flex justify-between items-center mb-2">
-                          <Link
-                            to={`/transaction/${tx.hash}`}
-                            className="text-primary hover:underline font-mono"
-                          >
-                            {shortenAddress(tx.hash, 8)}
-                          </Link>
-                          <span
-                            className={`px-2 py-1 text-xs rounded-full ${getStatusClass(
-                              tx.status
-                            )}`}
-                          >
-                            {tx.status}
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <div>
-                            <span className="text-gray-500 dark:text-gray-400 mr-1">
-                              From:
-                            </span>
-                            <Link
-                              to={`/account/${tx.from}`}
-                              className="text-primary hover:underline font-mono"
-                            >
-                              {shortenAddress(tx.from, 6)}
-                            </Link>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+
+                <div className="overflow-x-auto divide-y divide-gray-200 dark:divide-gray-700">
+                  {blocks.slice(0, 5).map((block, index) => (
+                    <div
+                      key={block.hash}
+                      className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-4 shadow-sm">
+                            <FaCube className="text-blue-500 dark:text-blue-400" />
                           </div>
                           <div>
-                            <span className="text-gray-500 dark:text-gray-400 mr-1">
-                              To:
-                            </span>
                             <Link
-                              to={`/account/${tx.to}`}
-                              className="text-primary hover:underline font-mono"
+                              to={`/block/${block.nonce}`}
+                              className="text-lg font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-light transition-colors"
                             >
-                              {shortenAddress(tx.to, 6)}
+                              #{formatNumber(block.nonce)}
                             </Link>
-                          </div>
-                          <div>
-                            <span className="text-gray-500 dark:text-gray-400 mr-1">
-                              Amount:
-                            </span>
-                            <span>{formatCrypto(tx.value)}</span>
+                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-1">
+                              <div className="truncate max-w-[120px] font-mono">
+                                {shortenAddress(block.hash, 8)}
+                              </div>
+                              <span
+                                className={`ml-2 px-2 py-0.5 text-xs rounded-full ${getShardBadgeClass(
+                                  block.shard
+                                )}`}
+                              >
+                                {block.shard === "metachain"
+                                  ? "Metachain"
+                                  : `Shard ${block.shard}`}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                        <div className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          {timeAgo(tx.timestamp)}
+                        <div className="text-right">
+                          <div className="flex items-center justify-end">
+                            <span className="text-gray-700 dark:text-gray-300 text-sm font-medium mr-2">
+                              {formatNumber(block.txCount)} txns
+                            </span>
+                            <span className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs text-gray-600 dark:text-gray-400">
+                              {formatNumber(block.size)} B
+                            </span>
+                          </div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            {timeAgo(block.timestamp)}
+                          </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="bg-gray-50 dark:bg-gray-800/30 py-3 px-6 border-t border-gray-200 dark:border-gray-700">
+                  <Link
+                    to="/blocks"
+                    className="text-primary hover:text-primary-dark text-sm font-medium flex items-center"
+                  >
+                    View All Blocks
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
                 </div>
               </div>
 
-              <div className="w-full md:w-1/2">
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden">
-                  <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
-                    <h2 className="text-xl font-bold flex items-center">
-                      <FaCubes className="mr-2 text-primary" />
-                      Latest Blocks
-                    </h2>
-                    <Link
-                      to="/blocks"
-                      className="text-primary hover:text-primary-dark flex items-center text-sm"
+              {/* Recent Transactions Section */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-black rounded-xl shadow-lg overflow-hidden transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-800">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white group flex items-center">
+                    <FaExchangeAlt className="mr-3 text-green-500 dark:text-green-400" />
+                    Latest Transactions
+                    <span className="w-2 h-2 bg-green-400 rounded-full ml-3 animate-pulse"></span>
+                  </h2>
+                  <Link
+                    to="/transactions"
+                    className="bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md text-sm shadow-sm transition-all duration-200 hover:shadow-md flex items-center group"
+                  >
+                    View All
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                      View All <FaAngleRight className="ml-1" />
-                    </Link>
-                  </div>
-                  <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {blocks.map((block) => (
-                      <div
-                        key={block.hash}
-                        className="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800"
-                      >
-                        <div className="flex justify-between items-center mb-2">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+
+                <div className="overflow-x-auto divide-y divide-gray-200 dark:divide-gray-700">
+                  {transactions.slice(0, 5).map((tx) => (
+                    <div
+                      key={tx.hash}
+                      className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <Link
+                          to={`/transaction/${tx.hash}`}
+                          className="flex items-center font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-light transition-colors"
+                        >
+                          <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4 shadow-sm">
+                            <FaExchangeAlt className="text-green-500 dark:text-green-400" />
+                          </div>
+                          <div className="font-mono">
+                            {shortenAddress(tx.hash, 10)}
+                          </div>
+                        </Link>
+                        <span
+                          className={`px-2 py-1 text-xs rounded-full ${getStatusClass(
+                            tx.status
+                          )}`}
+                        >
+                          {tx.status}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-2 text-sm pl-14">
+                        <div>
+                          <div className="text-gray-500 dark:text-gray-400 text-xs">
+                            From
+                          </div>
                           <Link
-                            to={`/block/${block.nonce}`}
-                            className="flex items-center text-primary hover:underline"
+                            to={`/account/${tx.from}`}
+                            className="font-mono text-primary hover:underline truncate block"
                           >
-                            <FaCube className="mr-2" />
-                            {block.nonce}
+                            {shortenAddress(tx.from, 8)}
                           </Link>
-                          <span
-                            className={`px-2 py-1 text-xs rounded-full ${getShardBadgeClass(
-                              block.shard
-                            )}`}
+                        </div>
+                        <div>
+                          <div className="text-gray-500 dark:text-gray-400 text-xs">
+                            To
+                          </div>
+                          <Link
+                            to={`/account/${tx.to}`}
+                            className="font-mono text-primary hover:underline truncate block"
                           >
-                            {block.shard === "metachain"
-                              ? "Metachain"
-                              : `Shard ${block.shard}`}
-                          </span>
+                            {shortenAddress(tx.to, 8)}
+                          </Link>
                         </div>
-                        <div className="flex justify-between text-sm">
-                          <div>
-                            <span className="text-gray-500 dark:text-gray-400 mr-1">
-                              Hash:
-                            </span>
-                            <span className="font-mono">
-                              {shortenAddress(block.hash, 8)}
-                            </span>
+                        <div className="text-right">
+                          <div className="text-gray-500 dark:text-gray-400 text-xs">
+                            Value
                           </div>
-                          <div>
-                            <span className="text-gray-500 dark:text-gray-400 mr-1">
-                              Txns:
-                            </span>
-                            <span>{block.txCount}</span>
+                          <div className="font-medium text-gray-800 dark:text-gray-200">
+                            {formatCrypto(tx.value)}
                           </div>
-                          <div>
-                            <span className="text-gray-500 dark:text-gray-400 mr-1">
-                              Size:
-                            </span>
-                            <span>{formatNumber(block.size)} bytes</span>
+                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            {timeAgo(tx.timestamp)}
                           </div>
-                        </div>
-                        <div className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          {timeAgo(block.timestamp)}
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="bg-gray-50 dark:bg-gray-800/30 py-3 px-6 border-t border-gray-200 dark:border-gray-700">
+                  <Link
+                    to="/transactions"
+                    className="text-primary hover:text-primary-dark text-sm font-medium flex items-center"
+                  >
+                    View All Transactions
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
                 </div>
               </div>
             </div>
