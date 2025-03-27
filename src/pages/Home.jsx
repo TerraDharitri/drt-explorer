@@ -202,16 +202,79 @@ const Home = () => {
               }));
 
             // Mock blocks data
-            const mockBlocks = Array(20)
-              .fill(0)
-              .map((_, i) => ({
-                hash: `0x${Math.random().toString(16).substring(2, 64)}`,
-                nonce: 5000000 - i,
-                shard: Math.floor(Math.random() * 3),
-                txCount: Math.floor(Math.random() * 50),
-                size: Math.floor(Math.random() * 1000000),
-                timestamp: Math.floor(Date.now() / 1000) - i * 6,
-              }));
+            const mockBlocks = [
+              {
+                hash:
+                  "0xc23c7f8cf972c" +
+                  Math.random().toString(16).substring(2, 44),
+                nonce: 5000000,
+                shard: 0,
+                txCount: 45,
+                size: 970000,
+                timestamp: Math.floor(Date.now() / 1000) - 3600,
+              },
+              {
+                hash:
+                  "0xcb42bba8a410e" +
+                  Math.random().toString(16).substring(2, 43),
+                nonce: 5000000,
+                shard: 1,
+                txCount: 34,
+                size: 633000,
+                timestamp: Math.floor(Date.now() / 1000) - 7200,
+              },
+              {
+                hash:
+                  "0x6d08a4a18b257" +
+                  Math.random().toString(16).substring(2, 43),
+                nonce: 5000000,
+                shard: 2,
+                txCount: 6,
+                size: 558000,
+                timestamp: Math.floor(Date.now() / 1000) - 10800,
+              },
+              {
+                hash:
+                  "0x3beb5b637a2b6" +
+                  Math.random().toString(16).substring(2, 43),
+                nonce: 5000000,
+                shard: 0,
+                txCount: 47,
+                size: 442000,
+                timestamp: Math.floor(Date.now() / 1000) - 14400,
+              },
+              {
+                hash:
+                  "0x70a9a9c75df5d" +
+                  Math.random().toString(16).substring(2, 43),
+                nonce: 5000000,
+                shard: 1,
+                txCount: 14,
+                size: 117000,
+                timestamp: Math.floor(Date.now() / 1000) - 18000,
+              },
+              // Add more blocks to fill the space
+              {
+                hash:
+                  "0x92a6b3c4d5e6f" +
+                  Math.random().toString(16).substring(2, 43),
+                nonce: 5000000,
+                shard: 0,
+                txCount: 38,
+                size: 784000,
+                timestamp: Math.floor(Date.now() / 1000) - 21600,
+              },
+              {
+                hash:
+                  "0x1a2b3c4d5e6f7" +
+                  Math.random().toString(16).substring(2, 43),
+                nonce: 5000000,
+                shard: 2,
+                txCount: 29,
+                size: 512000,
+                timestamp: Math.floor(Date.now() / 1000) - 25200,
+              },
+            ];
 
             // Mock most transacted tokens data
             const mockMostTransactedTokens = [
@@ -1252,7 +1315,7 @@ const Home = () => {
                           Rank
                         </th>
                         <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                          Token
+                          Collection
                         </th>
                         <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">
                           Items
@@ -1470,6 +1533,12 @@ const Home = () => {
                           Token
                         </th>
                         <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">
+                          Symbol
+                        </th>
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">
+                          Holders
+                        </th>
+                        <th className="py-3 px-6 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">
                           Total Txn
                         </th>
                       </tr>
@@ -1486,13 +1555,19 @@ const Home = () => {
                               <span className="text-lg">🪙</span>
                             </div>
                             <div className="font-medium text-gray-900 dark:text-white">
-                              REWA{" "}
+                              Reward Token{" "}
                               <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">
                                 <span className="h-1.5 w-1.5 rounded-full bg-blue-400 mr-1"></span>
                                 Verified
                               </span>
                             </div>
                           </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          REWA
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          124,587
                         </td>
                         <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
                           18,834
@@ -1509,13 +1584,19 @@ const Home = () => {
                               <span className="text-lg">💵</span>
                             </div>
                             <div className="font-medium text-gray-900 dark:text-white">
-                              USDC{" "}
+                              USD Coin{" "}
                               <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">
                                 <span className="h-1.5 w-1.5 rounded-full bg-green-400 mr-1"></span>
                                 Verified
                               </span>
                             </div>
                           </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          USDC
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          78,962
                         </td>
                         <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
                           5,614
@@ -1532,9 +1613,15 @@ const Home = () => {
                               <span className="text-lg">🪙</span>
                             </div>
                             <div className="font-medium text-gray-900 dark:text-white">
-                              BNB
+                              Binance Coin
                             </div>
                           </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          BNB
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          54,321
                         </td>
                         <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
                           4,775
@@ -1551,13 +1638,19 @@ const Home = () => {
                               <span className="text-lg">💎</span>
                             </div>
                             <div className="font-medium text-gray-900 dark:text-white">
-                              REWA{" "}
+                              Dharitri REWA{" "}
                               <span className="inline-flex ml-2 items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300">
                                 <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 mr-1"></span>
                                 Verified
                               </span>
                             </div>
                           </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          REWA
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          25,874
                         </td>
                         <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
                           2,461
@@ -1574,9 +1667,15 @@ const Home = () => {
                               <span className="text-lg">🔄</span>
                             </div>
                             <div className="font-medium text-gray-900 dark:text-white">
-                              MEX
+                              Maiar Exchange Token
                             </div>
                           </div>
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          MEX
+                        </td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-700 dark:text-gray-300">
+                          18,935
                         </td>
                         <td className="px-6 py-4 text-right text-sm font-medium text-teal-500 dark:text-teal-400">
                           1,488
@@ -1643,56 +1742,63 @@ const Home = () => {
                   </Link>
                 </div>
 
-                <div className="overflow-x-auto divide-y divide-gray-200 dark:divide-gray-700">
-                  {blocks.slice(0, 5).map((block, index) => (
-                    <div
-                      key={block.hash}
-                      className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-4 shadow-sm">
-                            <FaCube className="text-blue-500 dark:text-blue-400" />
-                          </div>
-                          <div>
-                            <Link
-                              to={`/block/${block.nonce}`}
-                              className="text-lg font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-light transition-colors"
-                            >
-                              #{formatNumber(block.nonce)}
-                            </Link>
-                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-1">
-                              <div className="truncate max-w-[120px] font-mono">
-                                {shortenAddress(block.hash, 8)}
-                              </div>
-                              <span
-                                className={`ml-2 px-2 py-0.5 text-xs rounded-full ${getShardBadgeClass(
-                                  block.shard
-                                )}`}
+                <div className="overflow-x-auto">
+                  <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                    {blocks.slice(0, 7).map((block, index) => (
+                      <div
+                        key={block.hash}
+                        className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-4 shadow-sm">
+                              <FaCube className="text-blue-500 dark:text-blue-400" />
+                            </div>
+                            <div>
+                              <Link
+                                to={`/block/${block.nonce}`}
+                                className="text-lg font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-light transition-colors"
                               >
-                                {block.shard === "metachain"
-                                  ? "Metachain"
-                                  : `Shard ${block.shard}`}
+                                #
+                                {block.nonce >= 5000000
+                                  ? "5.0M"
+                                  : formatNumber(block.nonce)}
+                              </Link>
+                              <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                <div className="font-mono">
+                                  {block.hash.substring(0, 16)}
+                                </div>
+                                <span
+                                  className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
+                                    block.shard === 0
+                                      ? "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400"
+                                      : block.shard === 1
+                                      ? "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
+                                      : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400"
+                                  }`}
+                                >
+                                  Shard {block.shard}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-sm font-medium text-teal-500 dark:text-teal-400">
+                              {block.txCount} txns
+                            </div>
+                            <div className="flex items-center justify-end mt-1">
+                              <span className="bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded text-xs text-gray-600 dark:text-gray-400">
+                                {(block.size / 1000).toFixed(1)}K B
                               </span>
+                            </div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                              55 years ago
                             </div>
                           </div>
                         </div>
-                        <div className="text-right">
-                          <div className="flex items-center justify-end">
-                            <span className="text-gray-700 dark:text-gray-300 text-sm font-medium mr-2">
-                              {formatNumber(block.txCount)} txns
-                            </span>
-                            <span className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs text-gray-600 dark:text-gray-400">
-                              {formatNumber(block.size)} B
-                            </span>
-                          </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            {timeAgo(block.timestamp)}
-                          </div>
-                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
 
                 <div className="bg-gray-50 dark:bg-gray-800/30 py-3 px-6 border-t border-gray-200 dark:border-gray-700">
@@ -1717,6 +1823,9 @@ const Home = () => {
                     </svg>
                   </Link>
                 </div>
+
+                {/* This is added to fill the remaining space */}
+                <div className="bg-transparent h-20"></div>
               </div>
 
               {/* Recent Transactions Section */}
@@ -1749,70 +1858,72 @@ const Home = () => {
                   </Link>
                 </div>
 
-                <div className="overflow-x-auto divide-y divide-gray-200 dark:divide-gray-700">
-                  {transactions.slice(0, 5).map((tx) => (
-                    <div
-                      key={tx.hash}
-                      className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <Link
-                          to={`/transaction/${tx.hash}`}
-                          className="flex items-center font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-light transition-colors"
-                        >
-                          <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4 shadow-sm">
-                            <FaExchangeAlt className="text-green-500 dark:text-green-400" />
-                          </div>
-                          <div className="font-mono">
-                            {shortenAddress(tx.hash, 10)}
-                          </div>
-                        </Link>
-                        <span
-                          className={`px-2 py-1 text-xs rounded-full ${getStatusClass(
-                            tx.status
-                          )}`}
-                        >
-                          {tx.status}
-                        </span>
-                      </div>
+                <div className="overflow-x-auto">
+                  <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                    {transactions.slice(0, 5).map((tx) => (
+                      <div
+                        key={tx.hash}
+                        className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <Link
+                            to={`/transaction/${tx.hash}`}
+                            className="flex items-center font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-light transition-colors"
+                          >
+                            <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4 shadow-sm">
+                              <FaExchangeAlt className="text-green-500 dark:text-green-400" />
+                            </div>
+                            <div className="font-mono">
+                              {shortenAddress(tx.hash, 10)}
+                            </div>
+                          </Link>
+                          <span
+                            className={`px-2 py-0.5 text-xs rounded-full ${getStatusClass(
+                              tx.status
+                            )}`}
+                          >
+                            {tx.status}
+                          </span>
+                        </div>
 
-                      <div className="grid grid-cols-3 gap-2 text-sm pl-14">
-                        <div>
-                          <div className="text-gray-500 dark:text-gray-400 text-xs">
-                            From
+                        <div className="grid grid-cols-3 gap-2 text-sm pl-14">
+                          <div>
+                            <div className="text-gray-500 dark:text-gray-400 text-xs">
+                              From
+                            </div>
+                            <Link
+                              to={`/account/${tx.from}`}
+                              className="font-mono text-primary hover:underline truncate block"
+                            >
+                              {shortenAddress(tx.from, 8)}
+                            </Link>
                           </div>
-                          <Link
-                            to={`/account/${tx.from}`}
-                            className="font-mono text-primary hover:underline truncate block"
-                          >
-                            {shortenAddress(tx.from, 8)}
-                          </Link>
-                        </div>
-                        <div>
-                          <div className="text-gray-500 dark:text-gray-400 text-xs">
-                            To
+                          <div>
+                            <div className="text-gray-500 dark:text-gray-400 text-xs">
+                              To
+                            </div>
+                            <Link
+                              to={`/account/${tx.to}`}
+                              className="font-mono text-primary hover:underline truncate block"
+                            >
+                              {shortenAddress(tx.to, 8)}
+                            </Link>
                           </div>
-                          <Link
-                            to={`/account/${tx.to}`}
-                            className="font-mono text-primary hover:underline truncate block"
-                          >
-                            {shortenAddress(tx.to, 8)}
-                          </Link>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-gray-500 dark:text-gray-400 text-xs">
-                            Value
-                          </div>
-                          <div className="font-medium text-gray-800 dark:text-gray-200">
-                            {formatCrypto(tx.value)}
-                          </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            {timeAgo(tx.timestamp)}
+                          <div className="text-right">
+                            <div className="text-gray-500 dark:text-gray-400 text-xs">
+                              Value
+                            </div>
+                            <div className="font-medium text-teal-500 dark:text-teal-400">
+                              {formatCrypto(tx.value)}
+                            </div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                              {timeAgo(tx.timestamp)}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
 
                 <div className="bg-gray-50 dark:bg-gray-800/30 py-3 px-6 border-t border-gray-200 dark:border-gray-700">
